@@ -45,6 +45,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\DataEncodingModeAlphabatPlusAlpha.cs" />
     <Compile Include="Steps\DataMaximumLengthPerModel.cs" />
+    <Compile Include="Steps\ReedSolomonBlock.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpReedSolomon\CSharpReedSolomon.csproj">
+      <Project>{c636042e-80c5-4e68-bd92-a806b7a70882}</Project>
+      <Name>CSharpReedSolomon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
