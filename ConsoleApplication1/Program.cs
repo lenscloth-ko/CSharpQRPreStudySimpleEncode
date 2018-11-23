@@ -16,7 +16,7 @@ namespace ConsoleApplication1
             //2.2 데이터 코드로 인코딩
             string iVersion = "1"; //버전
             string iErrorRestoreLevel = "H"; // 오류 정정 단계
-            string iStr = "ABCDE123"; //입력문자를 이걸로 가정 버전 1, 오류 정정 단계 H(이하 1-H라 한다.)
+            string iStr = "ABCDE123"; //입력문자를 이걸로 가정 버전 1, 오류 정정 단계 H(이하 1-H라 한다.) 
 
             //2.2.1 모드 지시자
             //숫자 모드 : 0001
@@ -164,6 +164,6 @@ namespace ConsoleApplication1
                     _loopString = string.Empty;
                 }
             } // end for
-        }
-    }
-}
+        } // end Main 
+    } // end class Program 
+} //  end namespace
