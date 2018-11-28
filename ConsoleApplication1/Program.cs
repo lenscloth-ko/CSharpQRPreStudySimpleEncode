@@ -1,4 +1,5 @@
 ﻿using CSharpQRPreStudySimpleEncode.Steps;
+using CSharpQRStudySimpleEncode.Steps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -164,6 +165,109 @@ namespace ConsoleApplication1
                     _loopString = string.Empty;
                 }
             } // end for
+
+
+            //하? 이제 Reed Solomon 관련인데...
+
+            //2.3 오류 정정 코드 계산
+            //QR코드의 오류 정정에는 Reed-solomon 알고리즘이 사용된다.
+            //먼저, 전 단계에서 나온 결과를 표5의 규칙에 의해 RS 블록으로 분할한다.
+            //예제 데이터는 1 - H를 사용하는데 이는 RS 블록 1이므로 분할할 필요는 없다.
+
+            //00100000-> 10 decimal : 32
+            //01000001-> 10 decimal : 65
+            //11001101-> 10 decimal : 205
+            //01000101-> 10 decimal : 69
+            //00101001-> 10 decimal : 41
+            //11011100-> 10 decimal : 220
+            //00101110-> 10 decimal : 46
+            //10000000-> 10 decimal : 128
+            //11101100-> 10 decimal : 236
+
+            int[] cData = new int[sb.ToString().Length];
+
+            for (int i = 0; i < sb.ToString().Length; i++)
+            {
+                cData[i] = int.Parse(sb.ToString()[i].ToString());
+            }
+
+            foreach (int item in cData)
+            {
+                Console.Write(item);
+            }
+
+            Console.WriteLine("\n-----------------------------------Reed Solomon Start----");
+
+            // 오류 정정 코드의 크기!!
+            int errorRepairCodeCount;
+            //RS블럭 구조 필드 iReedSolomon(GFDimension, RSLength, ParityLength)
+            int GFDimension, RSLength, ParityLength;
+
+            ReedSolomonBlock RSBlock = new ReedSolomonBlock(iVersion, iErrorRestoreLevel);
+            errorRepairCodeCount = RSBlock.GetErrorRepairCodeCount;
+            RSLength = RSBlock.GetRSLength;
+            GFDimension = RSBlock.GetGFDimension;
+            ParityLength = RSBlock.GetParityLength;
+
+            Console.WriteLine("errorRepairCodeCount = " + errorRepairCodeCount);
+            Console.WriteLine("GFDimension = " + GFDimension);
+            Console.WriteLine("RSLength = " + RSLength);
+            Console.WriteLine("ParityLength = " + ParityLength);
+
+            #region 2차시도 ㄱㄱ
+            //GenericGF gf = new GenericGF(8, 27, 0);
+            //Console.WriteLine("gf.Size = " + gf.Size);
+            //Console.WriteLine("gf.GeneratorBase = " + gf.GeneratorBase);
+
+            //ReedSolomonEncoder rsEnc = new ReedSolomonEncoder(gf);
+            //Console.WriteLine(rsEnc.ToString());
+            #endregion
+
+            #region 1차시도 ㅠㅠ 검증값 불일치
+            ////오류 정정 코드의 크기!!
+            //int errorRepairCodeCount;
+            ////RS블럭 구조 필드 iReedSolomon(GFDimension, RSLength, ParityLength)
+            //int GFDimension, RSLength, ParityLength;
+
+            //ReedSolomonBlock RSBlock = new ReedSolomonBlock(iVersion, iErrorRestoreLevel);
+            //errorRepairCodeCount = RSBlock.GetErrorRepairCodeCount;
+            //RSLength = RSBlock.GetRSLength;
+            //GFDimension = RSBlock.GetGFDimension;
+            //ParityLength = RSBlock.GetParityLength;
+
+            //Console.WriteLine("errorRepairCodeCount = " + errorRepairCodeCount);
+            //Console.WriteLine("GFDimension = " + GFDimension);
+            //Console.WriteLine("RSLength = " + RSLength);
+            //Console.WriteLine("ParityLength = " + ParityLength);
+
+            //byte[] data = new byte[2550];
+
+            //for (int i = 0; i < sb.ToString().Length; i++)
+            //{
+            //    data[i] = (byte)sb.ToString()[i];
+            //    //Console.WriteLine(iStr[i]);
+            //}
+
+            ////reed-solomon encdata
+            //byte[] encdata = new byte[2550];
+
+            ////인코딩
+            ////RS 블럭의 구조 (a,b,c)의 a, b, c는 각각 전체 코드의 수, 데이터 코드의 수, 오류 정정 코드의 수를 의미한다.
+            ////iReedSolomon iprs = new iReedSolomon(8, 26, 7);
+            //iReedSolomon iprs = new iReedSolomon(RSLength, GFDimension, ParityLength);
+            //iprs.EncodeRS(ref data, ref encdata);
+
+
+            ////iprs.DecodeRS(ref data, ref encdata);
+
+            //foreach (byte item in encdata)
+            //{
+            //    Console.Write(item);
+            //}
+            #endregion
+
+
+
         } // end Main 
     } // end class Program 
 } //  end namespace

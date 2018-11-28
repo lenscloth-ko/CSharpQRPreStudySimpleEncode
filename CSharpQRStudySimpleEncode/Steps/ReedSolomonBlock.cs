@@ -50,6 +50,30 @@ namespace CSharpQRStudySimpleEncode.Steps
         }
 
         /// <summary>
+        /// iRS 블럭 GFDimension 값 반환
+        /// </summary>
+        public int GetGFDimension
+        {
+            get { return GFDimension(); }
+        }
+
+        /// <summary>
+        /// iRS 블럭 RSLength 값 반환
+        /// </summary>
+        public int GetRSLength
+        {
+            get { return RSLength(); }
+        }
+
+        /// <summary>
+        /// iRS 블럭 ParityLength 값 반환
+        /// </summary>
+        public int GetParityLength
+        {
+            get { return ParityLength(); }
+        }
+
+        /// <summary>
         /// 오류 정정 코드의 갯수 반환
         /// </summary>
         /// <returns>오류 정정 코드의 갯수</returns>
@@ -61,6 +85,48 @@ namespace CSharpQRStudySimpleEncode.Steps
                 );
 
             return int.Parse(rows[0]["ErrorRestoreCount"].ToString());
+        }
+
+        /// <summary>
+        /// RS 블럭 GFDimension 값 반환
+        /// </summary>
+        /// <returns></returns>
+        private int GFDimension()
+        {
+            DataRow[] rows;
+            rows = this.QRReedSolomBlockTable.Select(
+                string.Format("Version = '{0}' AND Restore = '{1}'", _version, _errorRestoreLevel)
+                );
+
+            return int.Parse(rows[0]["GFDimension"].ToString());
+        }
+
+        /// <summary>
+        /// RS 블럭 RSLength 값 반환
+        /// </summary>
+        /// <returns></returns>
+        private int RSLength()
+        {
+            DataRow[] rows;
+            rows = this.QRReedSolomBlockTable.Select(
+                string.Format("Version = '{0}' AND Restore = '{1}'", _version, _errorRestoreLevel)
+                );
+
+            return int.Parse(rows[0]["RSLength"].ToString());
+        }
+
+        /// <summary>
+        /// RS 블럭 ParityLength 값 반환
+        /// </summary>
+        /// <returns></returns>
+        private int ParityLength()
+        {
+            DataRow[] rows;
+            rows = this.QRReedSolomBlockTable.Select(
+                string.Format("Version = '{0}' AND Restore = '{1}'", _version, _errorRestoreLevel)
+                );
+
+            return int.Parse(rows[0]["ParityLength"].ToString());
         }
 
         #region 표1. 버전 1~9의 데이터 코드와 오류 정정 코드의 갯수
@@ -115,12 +181,14 @@ namespace CSharpQRStudySimpleEncode.Steps
 
             //... 여기까지만 일단 입력 ㄷㄷ
 
-            for (int i = 0; i <= 255; i++)
-            {
-                Console.WriteLine(i + "/" + Math.Pow(2, i) + "/" + Convert.ToInt32(Math.Pow(2, i)));
-            }
+            //for (int i = 0; i <= 255 ; i++)
+            //{
+            //    Console.WriteLine(i + "/" + Math.Pow(2,i) + "/" + Convert.ToInt32(Math.Pow(2, i)));
+            //}
 
         } // end init_QRReedSolomBlockTable
         #endregion
-    } // end class ReedSolomonBlock
+
+
+    }
 } // end namespace
